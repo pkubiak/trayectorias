@@ -1,0 +1,223 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+    /* Globalne style */
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #1a1a1a; /* Bardzo ciemne tło */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem; /* p-4 */
+    }
+    @media (min-width: 640px) {
+        body {
+            padding: 2rem; /* sm:p-8 */
+        }
+    }
+
+    /* Tytuł */
+    .main-title {
+        font-size: 1.875rem; /* text-3xl */
+        font-weight: 700; /* font-bold */
+        margin-bottom: 2rem; /* mb-8 */
+        color: #f3f4f6; /* text-gray-100 */
+        text-align: center;
+    }
+    @media (min-width: 640px) {
+        .main-title {
+            font-size: 2.25rem; /* sm:text-4xl */
+        }
+    }
+    
+    /* Kontener Nagrobka */
+    .gravestone-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 2rem; /* mt-8 */
+    }
+
+    /* Główna płyta nagrobna (Kamień) */
+    .gravestone {
+        background-color: #3b3b3b; /* Ciemnoszary, kamienny kolor (gravestone-bg) */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.1);
+        transition: all 0.5s ease-in-out;
+
+        width: 18rem; /* w-72 */
+        height: 350px; /* h-[350px] */
+        
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
+        border-bottom-left-radius: 0.75rem; /* rounded-b-xl */
+        border-bottom-right-radius: 0.75rem; /* rounded-b-xl */
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem; /* p-6 */
+        border: 4px solid #4b5563; /* border-4 border-gray-600 */
+        position: relative;
+        text-align: center;
+    }
+
+    @media (min-width: 640px) {
+        .gravestone {
+            width: 20rem; /* sm:w-80 */
+            height: 400px; /* sm:h-[400px] */
+        }
+    }
+
+    /* Krzyż/symbol */
+    .cross-symbol {
+        position: absolute;
+        top: -1.5rem; /* -top-6 */
+        color: #facc15; /* text-yellow-400 */
+        font-size: 3.75rem; /* text-6xl */
+        opacity: 0.8;
+    }
+
+    /* Tekst Imienia */
+    .name-text {
+        font-size: 1.875rem; /* text-3xl */
+        font-weight: 700; /* font-bold */
+        margin-bottom: 1rem; /* mb-4 */
+        color: #fcd34d; /* text-yellow-300 */
+        letter-spacing: 0.05em; /* tracking-wide */
+        text-transform: uppercase;
+    }
+    @media (min-width: 640px) {
+        .name-text {
+            font-size: 2.25rem; /* sm:text-4xl */
+        }
+    }
+
+    /* Tekst Dat */
+    .dates-text {
+        font-size: 1.25rem; /* text-xl */
+        color: #d1d5db; /* text-gray-300 */
+    }
+    @media (min-width: 640px) {
+        .dates-text {
+            font-size: 1.5rem; /* sm:text-2xl */
+        }
+    }
+
+    /* Separator dat */
+    .separator {
+        margin-left: 0.5rem; /* mx-2 */
+        margin-right: 0.5rem; /* mx-2 */
+    }
+
+    /* Tekst ZUS */
+    .zus-text {
+        font-size: 1.125rem; /* text-lg */
+        margin-top: 0.75rem; /* mt-3 */
+        color: #d1d5db; /* text-gray-300 */
+        font-weight: 500; /* font-medium */
+    }
+
+    /* Epitafium */
+    .epitaph-text {
+        font-size: 0.875rem; /* text-sm */
+        font-style: italic;
+        margin-top: 1.5rem; /* mt-6 */
+        color: #9ca3af; /* text-gray-400 */
+    }
+
+    /* Podstawa Nagrobka */
+    .gravestone-base {
+        width: 20rem; /* w-80 */
+        height: 3rem; /* h-12 */
+        background-color: #4b5563; /* bg-gray-600 */
+        border-top-left-radius: 0.5rem; /* rounded-t-lg */
+        border-top-right-radius: 0.5rem; /* rounded-t-lg */
+        margin-top: 0.5rem; /* mt-2 */
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* shadow-xl */
+        border-top: 4px solid #6b7280; /* border-t-4 border-gray-500 */
+    }
+    @media (min-width: 640px) {
+        .gravestone-base {
+            width: 24rem; /* sm:w-96 */
+        }
+    }
+
+    /* NOWA SEKCJA: Krótka Historia */
+    .story-box {
+        width: 100%; /* Ustawienie na pełną szerokość dostępną w body (z uwzględnieniem paddingu) */
+        max-width: 40rem; /* Ograniczenie szerokości dla czytelności na dużych ekranach */
+        background-color: #2b2b2b; /* Ciemniejszy, ale wyraźny kolor tła */
+        color: #d1d5db; /* Jasny tekst */
+        padding: 1.5rem;
+        margin: 2rem auto 0 auto; /* Centrowanie i odstęp od nagrobka */
+        border-radius: 0.75rem; /* Zaokrąglone rogi */
+        border: 1px solid #4b5563; /* Subtelna ramka */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        text-align: left;
+    }
+
+    .story-box-title {
+        font-size: 1.25rem; /* text-xl */
+        font-weight: 600; /* semi-bold */
+        color: #fcd34d; /* Akcent żółty */
+        margin-bottom: 0.75rem;
+        border-bottom: 1px solid #4b5563;
+        padding-bottom: 0.5rem;
+    }
+
+    .story-content {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: #b3b3b3;
+    }
+
+    .story-quote {
+        font-style: italic;
+        text-align: right;
+        margin:0 16px;
+    }
+</style>
+<div class="container-center">
+    <!-- Wyświetlany Nagrobek -->
+    <div class="gravestone-wrapper">
+        <!-- Główna płyta nagrobna -->
+        <div class="gravestone gravestone-bg">
+            
+            <!-- Krzyż/symbol -->
+            <div class="cross-symbol">†</div>
+
+            <div class="gravestone-content">
+                <!-- Imię i Nazwisko (USTAWIONE NA SZTYWNO: ANDRZEJ) -->
+                <p id="displayedName" class="name-text">{{ name }}</p>
+
+                <!-- Daty (USTAWIONE NA SZTYWNO: 1920 - 2025) -->
+                <p id="displayedDates" class="dates-text">
+                    <span id="displayedBirthDate">{{ birth_year }}</span>
+                    <span class="separator">–</span>
+                    <span id="displayedDeathDate">{{ death_year }}</span>
+                </p>
+                
+                <!-- Składki ZUS (USTAWIONE NA SZTYWNO: 666 tys. PLN) -->
+                <p id="displayedZus" class="zus-text">
+                    Składki ZUS: {{ zus_money // 1000 }} tys. PLN
+                </p>
+
+                <!-- Sentencja (Epitafium) -->
+                <p class="epitaph-text">
+                    "Na zawsze w naszej pamięci"
+                </p>
+            </div>
+        </div>
+        <div class="gravestone-base"></div>
+    </div>
+
+    <!-- NOWA SEKCJA: Krótka Historia Zmarłego -->
+    <div class="story-box">
+        <h3 class="story-box-title">Krótka Historia Postaci</h3>
+        <div class="story-content">{{ summary }}</div>
+        <blockquote style="story-quote">— {{ quote }}</blockquote>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+.st-key-buttons button {
+    display: block;
+}
+.st-key-buttons button p{
+    font-size: 1.25rem;
+    font-weight: 300;
+    text-align: justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    text-align-last: left;
+}
+.st-key-vertical-buttons button {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    height: 120px;
+    text-align: center;
+}
+
+.st-key-vertical-buttons button div {
+    display: flex;
+    align-items: center;
+    overflow:unset;
+}
+.st-key-vertical-buttons button {
+    border-radius: 0.5rem !important;
+}
+        
+.st-key-vertical-buttons div[role="radiogroup"] {
+    flex-wrap: nowrap;
+    gap:0.5rem;
+}
+        
+.st-key-life-slider div[role="slider"] {
+    border-radius: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='%235f6368'%3E%3Cpath d='m280-40 112-564-72 28v136h-80v-188l202-86q14-6 29.5-7t29.5 4q14 5 26.5 14t20.5 23l40 64q26 42 70.5 69T760-520v80q-70 0-125-29t-94-74l-25 123 84 80v300h-80v-260l-84-64-72 324h-84Zm260-700q-33 0-56.5-23.5T460-820q0-33 23.5-56.5T540-900q33 0 56.5 23.5T620-820q0 33-23.5 56.5T540-740Z'/%3E%3C/svg%3E") center center no-repeat;
+    height:1.5rem;
+}
+        
+.st-key-life-slider div[data-testid="stSliderTickBar"] {
+    display:none;
+}
+        
+.st-key-life-slider div[data-baseweb="slider"] > div {
+    padding:0
+}
