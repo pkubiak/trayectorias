@@ -13,6 +13,7 @@ from user_creator import user_creator
 
 st.html("styles.css")
 
+# st.set_page_config(page_title="Trayectorias", page_icon="🧬", layout="centered", initial_sidebar_state="collapsed")
 
 if "current_date" not in st.session_state:
     user_creator()
@@ -34,16 +35,20 @@ with st.sidebar:
         cols = st.columns(2, vertical_alignment="bottom")
         event_type = cols[0].selectbox("Wybierz typ wydarzeń:", EVENT_TYPES)
         event_sentiment = cols[1].selectbox("Wybierz sentyment wydarzeń:", ["positive", "neutral", "negative", "fatal"])
+        custom = st.text_input("Niestandardowy opis wydarzenia:", placeholder="np. 'a job interview'")
         st.text(f"{event_type}, {event_sentiment}")
         with st.container(horizontal=True):
             if st.button("Event"):
                 st.session_state["response_type"] = "event"
+                st.session_state["custom"] = custom
                 change_event_type()
             if st.button("Reaction"):
                 st.session_state["response_type"] = "reaction"
+                st.session_state["custom"] = custom
                 change_event_type()
             if st.button("Action"):
                 st.session_state["response_type"] = "action"
+                st.session_state["custom"] = custom
                 change_event_type()
                 
     with st.expander("Parameters"):
@@ -290,7 +295,9 @@ def handle_event():
 
     if "response" not in st.session_state:
         contents = f"<event-type>{event_type}</event-type>\n\n<event-sentiment>{event_sentiment}</event-sentiment>\n\n<current-date>{current_date}</current-date>\n\n<user>{json.dumps(user_parameters, ensure_ascii=False)}</user>\n\n<history>{json.dumps(user_history, ensure_ascii=False)}</history>"
-
+        if "custom" in st.session_state and st.session_state["custom"]:
+            contents += f"\n\n<additional-requirements>{st.session_state['custom']}</additional-requirements>"
+            del st.session_state["custom"]
         response_text = generate_event(contents)
         
         with st.expander("Input content:"):
@@ -317,7 +324,11 @@ def handle_action():
 
     if "response" not in st.session_state:
         payload = f"<action-topic>{event_type}</action-topic>\n\n<current-date>{current_date}</current-date>\n\n<user>{json.dumps(user_parameters, ensure_ascii=False)}</user>\n\n<history>{json.dumps(user_history, ensure_ascii=False)}</history>"
+        if "custom" in st.session_state and st.session_state["custom"]:
+            payload += f"\n\n<additional-requirements>{st.session_state['custom']}</additional-requirements>"
+            del st.session_state["custom"]
         response_text = generate_action(payload)
+        
 
         st.session_state["response"] = PlayerAction.model_validate_json(response_text) 
         st.session_state["response_key"] = f"neutral_{event_type}"
@@ -341,6 +352,9 @@ def handle_reaction():
 
     if "response" not in st.session_state:
         contents = f"<reaction-kind>{event_type}</reaction-kind>\n\n<reaction-sentiment>{event_sentiment}</reaction-sentiment>\n\n<current-date>{current_date}</current-date>\n\n<user>{json.dumps(user_parameters, ensure_ascii=False)}</user>\n\n<history>{json.dumps(user_history, ensure_ascii=False)}</history>"
+        if "custom" in st.session_state and st.session_state["custom"]:
+            contents += f"\n\n<additional-requirements>{st.session_state['custom']}</additional-requirements>"
+            del st.session_state["custom"]
         response_text = generate_reaction(contents)
         st.session_state["response"] = PlayerReaction.model_validate_json(response_text) 
         st.session_state["response_key"] = f"{event_sentiment}_{event_type}"
